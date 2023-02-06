@@ -47,7 +47,7 @@ async function listGiveaways(client, interaction = null){
                 embeds: [embed],
                 components: [getButtons(pageNumber)],
                 fetchReply: true,
-                ephemeral:  interaction.message.author.id != process.env.DISCORD_OWNER_ID
+                ephemeral:  interaction.user.id != process.env.DISCORD_OWNER_ID
             });
         } else {
             let txtChannel = client.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
@@ -82,7 +82,7 @@ async function listGiveaways(client, interaction = null){
                 .setDescription(`${giveaway.title} ${giveaway.link ? " - " + giveaway.link : ""}`)
                 .setFooter({ text: `Página ${pageNumber}/${stored_giveaways.length}` });
 
-            await i.update({ embeds: [embed], components: [getButtons(pageNumber)], fetchReply: true, ephemeral: interaction.message.author.id != process.env.DISCORD_OWNER_ID });
+            await i.update({ embeds: [embed], components: [getButtons(pageNumber)], fetchReply: true, ephemeral: interaction.user.id != process.env.DISCORD_OWNER_ID });
         });
 
     } catch (err) {
