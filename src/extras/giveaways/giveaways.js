@@ -3,14 +3,13 @@ const fs = require('fs').promises;
 const cron = require('node-cron');
 const { getGiveaways, checkGiveawayAvailability, removeGiveawayFromDb} = require('../../helpers/general');
 const discord = require('discord.js');
+const { listGiveaways } = require("../../helpers/listGiveaways");
 
 require("dotenv").config();
 
 async function fetchGiveaways(client, dirName) {
     const base_path = dirName
     console.log("🔎 Iniciando a busca de novas promoções");
-
-
 
     cron.schedule("*/10 * * * *", async () => {
 
@@ -95,9 +94,16 @@ async function fetchGiveaways(client, dirName) {
                     await removeGiveawayFromDb(giveaway.id);
                 }
             });
-            
+
         })
 
+    }, {
+        scheduled: true,
+        timezone: "America/Sao_Paulo"
+    });
+
+    cron.schedule("0 */12 * * *", async () => {
+        await listGiveaways(client)
     }, {
         scheduled: true,
         timezone: "America/Sao_Paulo"
