@@ -31,7 +31,7 @@ async function main() {
 
     client.on("ready", () => {
         giveaways.fetchGiveaways(client, __dirname);
-        client.user.setActivity(`:mag_right: :free: /promocoes...`, {type: 'PLAYING'});
+        client.user.setActivity(` /promocoes`, {type: 'PLAYING'});
     });
 }
 
