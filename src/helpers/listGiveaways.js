@@ -47,7 +47,7 @@ async function listGiveaways(client, interaction = null){
                 embeds: [embed],
                 components: [getButtons(pageNumber)],
                 fetchReply: true,
-                ephemeral: true
+                ephemeral:  interaction.message.author.id != process.env.DISCORD_OWNER_ID
             });
         } else {
             let txtChannel = client.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
@@ -59,7 +59,7 @@ async function listGiveaways(client, interaction = null){
             })
             txtChannel.send(`Lembre-se que você pode consultar os jogos e drops :free: a qualquer hora usando o comando **/promocoes**`)
         }
-        const collector = interactionMsg.createMessageComponentCollector({ time: 600000, componentType: 'BUTTON' });
+        const collector = interactionMsg.createMessageComponentCollector({ componentType: 'BUTTON' });
 
         collector.on('collect', async (i) => {
             if (i.customId === 'next') {
@@ -82,7 +82,7 @@ async function listGiveaways(client, interaction = null){
                 .setDescription(`${giveaway.title} ${giveaway.link ? " - " + giveaway.link : ""}`)
                 .setFooter({ text: `Página ${pageNumber}/${stored_giveaways.length}` });
 
-            await i.update({ embeds: [embed], components: [getButtons(pageNumber)], fetchReply: true, ephemeral: true });
+            await i.update({ embeds: [embed], components: [getButtons(pageNumber)], fetchReply: true, ephemeral: interaction.message.author.id != process.env.DISCORD_OWNER_ID });
         });
 
     } catch (err) {
