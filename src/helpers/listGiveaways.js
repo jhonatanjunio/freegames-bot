@@ -1,14 +1,21 @@
 const fs = require('fs').promises;
 const discord = require('discord.js');
 const moment = require('moment-timezone');
+const {filterGiveaways} = require("./general");
 
 async function listGiveaways(client, interaction = null){
-    const base_path = __basedir;
 
     try {
-        let stored_giveaways = fs.readFile(`${base_path}/extras/giveaways/db/giveaways.json`, 'utf8');
-        stored_giveaways = JSON.parse(await stored_giveaways);
-        if (!stored_giveaways.length) return interaction.reply({ content: ' Não há promoções registradas na database.' });
+        let stored_giveaways;
+        if (interaction) {
+            // await interaction.deferReply().catch((_) => {});
+            stored_giveaways = await filterGiveaways(interaction.options.getString('plataforma'))
+            const checkPlat = interaction.options.getString('plataforma') ? `para a plataforma informada **${interaction.options.getString('plataforma')}**` : "na base de dados."
+            if (!stored_giveaways.length) return interaction.reply({ content: `Não há promoções registradas ${checkPlat}.` });
+        } else {
+            stored_giveaways = await filterGiveaways()
+            if (!stored_giveaways.length) return interaction.reply({ content: ' Não há promoções registradas na base de dados.' });
+        }
 
         let pageNumber = 1;
         let giveaway = stored_giveaways[pageNumber - 1];

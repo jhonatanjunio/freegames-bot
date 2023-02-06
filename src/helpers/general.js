@@ -27,4 +27,20 @@ async function removeGiveawayFromDb(id){
     await fs.writeFile(resolveFilePath("extras/giveaways/db/giveaways.json"), JSON.stringify(giveaways));
 }
 
-module.exports = { getGiveaways, checkGiveawayAvailability, removeGiveawayFromDb }
+async function filterGiveaways(platform){
+    let giveaways = fs.readFile(resolveFilePath("extras/giveaways/db/giveaways.json"), 'utf8');
+    giveaways = JSON.parse(await giveaways);
+    let filtered;
+    if(platform){
+        filtered = giveaways.filter(g => {
+            const explodePlatforms = g.platform.split(",").map(p => p.toLowerCase().trim());
+            return g.platform === platform || explodePlatforms.includes(platform);
+        });
+    } else {
+        filtered = giveaways
+    }
+
+    return filtered
+}
+
+module.exports = { getGiveaways, checkGiveawayAvailability, removeGiveawayFromDb, filterGiveaways }
