@@ -89,7 +89,7 @@ async function listGiveaways(client, interaction = null){
                 .setDescription(`${giveaway.title} ${giveaway.link ? " - " + giveaway.link : ""}`)
                 .setFooter({ text: `Página ${pageNumber}/${stored_giveaways.length}` });
 
-            await i.update({ embeds: [embed], components: [getButtons(pageNumber)], fetchReply: true, ephemeral: interaction.user.id != process.env.DISCORD_OWNER_ID });
+            await i.update({ embeds: [embed], components: [getButtons(pageNumber)], fetchReply: true, ephemeral: interaction.user && interaction.user.id != process.env.DISCORD_OWNER_ID });
         });
 
     } catch (err) {

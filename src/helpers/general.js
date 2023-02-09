@@ -7,7 +7,7 @@ function resolveFilePath(file){
 }
 async function getGiveaways(platform, type){
     platform = platform ? platform.toLowerCase() : "pc";
-    type = type ? type.toLowerCase() : "game.loot";
+    type = type ? type.toLowerCase() : "game";
     const file = await file_get_contents(`https://www.gamerpower.com/api/giveaways?platform=${platform}&type=${type}&sort-by=popularity`);
     return JSON.parse(file);
 }

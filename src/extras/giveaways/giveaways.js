@@ -102,7 +102,7 @@ async function fetchGiveaways(client, dirName) {
         timezone: "America/Sao_Paulo"
     });
 
-    cron.schedule("0 */12 * * *", async () => {
+    cron.schedule("0 12 * * */2", async () => {
         await listGiveaways(client)
     }, {
         scheduled: true,
