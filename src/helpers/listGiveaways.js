@@ -66,7 +66,7 @@ async function listGiveaways(client, interaction = null){
             })
             txtChannel.send(`Lembre-se que você pode consultar os jogos e drops :free: a qualquer hora usando o comando **/promocoes**`)
         }
-        const collector = interactionMsg.createMessageComponentCollector({ componentType: 'BUTTON' });
+        const collector = interactionMsg.createMessageComponentCollector({ componentType: 'BUTTON', time: 0 });
 
         collector.on('collect', async (i) => {
             if (i.customId === 'next') {
