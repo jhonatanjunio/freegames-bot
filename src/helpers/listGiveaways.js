@@ -88,8 +88,10 @@ async function listGiveaways(client, interaction = null){
                 .setImage(giveaway.image)
                 .setDescription(`${giveaway.title} ${giveaway.link ? " - " + giveaway.link : ""}`)
                 .setFooter({ text: `Página ${pageNumber}/${stored_giveaways.length}` });
+                
+            const interactionCheck = interaction ? (interaction.user.bot ? interaction.member?.user.id != process.env.DISCORD_OWNER_ID : interaction.user.id != process.env.DISCORD_OWNER_ID) : i.member && i.member.user && i.member.user.id != process.env.DISCORD_OWNER_ID;
 
-            await i.update({ embeds: [embed], components: [getButtons(pageNumber)], fetchReply: true, ephemeral: interaction.user && interaction.user.id != process.env.DISCORD_OWNER_ID });
+            await i.update({ embeds: [embed], components: [getButtons(pageNumber)], fetchReply: true, ephemeral: interactionCheck });
         });
 
     } catch (err) {
