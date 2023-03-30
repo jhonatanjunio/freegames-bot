@@ -1,7 +1,7 @@
 const file_get_contents = require("./file_get_contents");
 const {promises: fs} = require("fs");
 const path = require('path').resolve(__dirname, '..')
-
+const arrayShuffle = require('array-shuffle')
 function resolveFilePath(file){
     return path + `/${file}`;
 }
@@ -29,7 +29,7 @@ async function removeGiveawayFromDb(id){
 
 async function filterGiveaways(platform){
     let giveaways = fs.readFile(resolveFilePath("extras/giveaways/db/giveaways.json"), 'utf8');
-    giveaways = JSON.parse(await giveaways);
+    giveaways = arrayShuffle(await JSON.parse(await giveaways));
     let filtered;
     if(platform){
         filtered = giveaways.filter(g => {
