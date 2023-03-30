@@ -1,7 +1,7 @@
 const file_get_contents = require("./file_get_contents");
 const {promises: fs} = require("fs");
 const path = require('path').resolve(__dirname, '..')
-const arrayShuffle = require('array-shuffle')
+import arrayShuffle from "array-shuffle";
 function resolveFilePath(file){
     return path + `/${file}`;
 }
