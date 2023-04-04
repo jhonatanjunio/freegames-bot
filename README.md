@@ -5,7 +5,7 @@ A Discord bot that works like a free games radar!
 ## Features
 
 - At every 10 minutes the bot will search for new free games and loot! It will delete the expired promotions too.
-- Users can call /promocoes in order to see the current free games and loot.
+- Users can call /promocoes in order to see the current free games and loot
 
 ## How to use
 
